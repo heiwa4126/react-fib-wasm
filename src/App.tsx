@@ -1,15 +1,29 @@
 import { useState } from "react";
 import "./App.css";
 
-function App() {
-  const [count, setCount] = useState(0);
+function FibButton({ n }: { n: number }) {
+  const [count, setCount] = useState(n);
+
+  function fib(num: number): number {
+    if (num <= 1) return num;
+    return fib(num - 1) + fib(num - 2);
+  }
 
   return (
     <>
-      <h1>react-fib-wasm</h1>
       <button type="button" className="counter" onClick={() => setCount((count) => count + 1)}>
-        Count is {count}
-      </button>
+        count={count}
+      </button>{" "}
+      fib({count})={fib(count)}
+    </>
+  );
+}
+
+function App() {
+  return (
+    <>
+      <h1>react-fib-wasm</h1>
+      <FibButton n={1} />
     </>
   );
 }
