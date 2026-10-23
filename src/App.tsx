@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import { fib as fibWasm } from "@heiwa4126/fib-wasm";
 
@@ -24,23 +24,28 @@ function FibButtonWasm({ n }: { n: number }) {
   const [result, setResult] = useState<number | null>(null);
   const [count, setCount] = useState(n);
 
+  useEffect(() => {
+    let ignore = false;
+    // setResult(null);
+
+    void fibWasm(count).then((value) => {
+      if (!ignore) setResult(value);
+    });
+
+    return () => {
+      ignore = true;
+    };
+  }, [count]);
+
   return (
     <>
-      <button
-        type="button"
-        className="counter"
-        onClick={async () => {
-          setCount((count) => count + 1);
-          setResult(await fibWasm(count + 1));
-        }}
-      >
+      <button type="button" className="counter" onClick={() => setCount((count) => count + 1)}>
         count={count}
       </button>{" "}
-      fib({count})={result}
+      fib({count})={result ?? "..."}
     </>
   );
 }
-
 function App() {
   return (
     <>

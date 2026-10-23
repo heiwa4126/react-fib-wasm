@@ -21,8 +21,8 @@ importers:
   .:
     dependencies:
       '@heiwa4126/fib-wasm':
-        specifier: 0.0.1-alpha.1
-        version: 0.0.1-alpha.1
+        specifier: 0.0.1-alpha.3
+        version: 0.0.1-alpha.3
       react:
         specifier: ^19.3.1
         version: 19.3.1
@@ -69,8 +69,8 @@ packages:
   '@blazediff/core@1.10.0':
     resolution: {integrity: sha512-AOQff0zgR7cGsZL+4E7hVkmujoPUpm0J9xzWGWZj5wCjd3gmxESXAPfKyuzs93VdpQNFhHlBhfOjrcZ+XTERtQ==}
 
-  '@heiwa4126/fib-wasm@0.0.1-alpha.1':
-    resolution: {integrity: sha512-b+hrtRjxl1ZmKDCI+yWpMzYNxWbF8Bsa/qQlohUmkpeyllsKO0o8wa92YkmCWS07j675lhpNis8c0cYS2Kp8bA==}
+  '@heiwa4126/fib-wasm@0.0.1-alpha.3':
+    resolution: {integrity: sha512-dCiI7du1XXgDKHTs+HLt+/v8P4AioPAHRH4Uc98opHjSW5ph6/2tizTWdXra7zcHk7EuMYQiwDNGCrMaXtAZlg==}
 
   '@jridgewell/resolve-uri@3.1.2':
     resolution: {integrity: sha512-bRISgCIjP20/tbWSPWMEi54QVPRZExkuD9lJL+UIxUKtwVJA8wW1Trb1jMs1RFXo1CBTNZ/5hpC9QvmKWdopKw==}
@@ -1022,7 +1022,7 @@ snapshots:
 
   '@blazediff/core@1.10.0': {}
 
-  '@heiwa4126/fib-wasm@0.0.1-alpha.1': {}
+  '@heiwa4126/fib-wasm@0.0.1-alpha.3': {}
 
   '@jridgewell/resolve-uri@3.1.2': {}
 
