@@ -4,6 +4,9 @@ import { defineConfig, lazyPlugins } from "vite-plus";
 // https://vite.dev/config/
 export default defineConfig({
   fmt: {},
+  test: {
+    environment: "jsdom",
+  },
   lint: {
     plugins: ["react", "typescript", "oxc"],
     rules: {

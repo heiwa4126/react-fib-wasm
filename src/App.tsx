@@ -3,26 +3,8 @@ import { QueryClient, QueryClientProvider, useQuery } from "@tanstack/react-quer
 import "./App.css";
 import { fib as fibWasm } from "@heiwa4126/fib-wasm";
 
-const queryClient = new QueryClient();
-
-function FibButton({ n }: { n: number }) {
-  const [count, setCount] = useState(n);
-
-  function fib(num: number): number {
-    if (num <= 1) return num;
-    return fib(num - 1) + fib(num - 2);
-  }
-
-  return (
-    <>
-      <button type="button" className="counter" onClick={() => setCount((count) => count + 1)}>
-        count={count}
-      </button>{" "}
-      fib({count})={fib(count)}
-    </>
-  );
-}
-
+// WebAssembly を使う非同期関数でフィボナッチを計算するボタン
+// 複雑さを隠蔽するために Tanstack React Query を使っている
 function FibButtonWasm({ n }: { n: number }) {
   const [count, setCount] = useState(n);
   const { data, isPending, isError } = useQuery({
@@ -42,7 +24,28 @@ function FibButtonWasm({ n }: { n: number }) {
   );
 }
 
+// TypeScript だけで計算するフィボナッチボタン
+function FibButton({ n }: { n: number }) {
+  const [count, setCount] = useState(n);
+
+  function fib(num: number): number {
+    if (num <= 1) return num;
+    return fib(num - 1) + fib(num - 2);
+  }
+
+  return (
+    <>
+      <button type="button" className="counter" onClick={() => setCount((count) => count + 1)}>
+        count={count}
+      </button>{" "}
+      fib({count})={fib(count)}
+    </>
+  );
+}
+
 function App() {
+  const [queryClient] = useState(() => new QueryClient());
+
   return (
     <QueryClientProvider client={queryClient}>
       <h1>react-fib-wasm</h1>
