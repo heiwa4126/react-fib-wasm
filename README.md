@@ -24,3 +24,13 @@ vp build && vp preview
 上は TypeScript だけで書いたボタン
 
 クリックするたび増加した値でフィボナッチ数を計算する。
+
+## メモ
+
+ちゃんと wasm を使うか確認用に、
+[vite.config.ts](vite.config.ts) の
+`assetsInlineLimit: 0`
+で WASM の埋め込みを止めてます。
+実用時にはここをコメントアウトしてください。
+
+あと React 関連は CDN から呼ぶ設定になってます。

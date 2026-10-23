@@ -30,5 +30,20 @@ export default defineConfig({
       },
     ],
   },
+  build: {
+    minify: true,
+    assetsInlineLimit: 0, // 小さいバイナリを埋め込むのをやめる設定. wasmだけでなく画像などにも適用される
+    rolldownOptions: {
+      external: ["react", "react-dom", "react-dom/client", "react/jsx-runtime"],
+      output: {
+        minify: {
+          compress: {
+            dropConsole: true,
+            dropDebugger: true,
+          },
+        },
+      },
+    },
+  },
   plugins: lazyPlugins(() => [react()]),
 });
