@@ -21,15 +21,14 @@ function FibButton({ n }: { n: number }) {
 }
 
 function FibButtonWasm({ n }: { n: number }) {
-  const [result, setResult] = useState<number | null>(null);
+  const [result, setResult] = useState<{ count: number; value: number } | null>(null);
   const [count, setCount] = useState(n);
 
   useEffect(() => {
     let ignore = false;
-    // setResult(null);
 
     void fibWasm(count).then((value) => {
-      if (!ignore) setResult(value);
+      if (!ignore) setResult({ count, value });
     });
 
     return () => {
@@ -42,10 +41,11 @@ function FibButtonWasm({ n }: { n: number }) {
       <button type="button" className="counter" onClick={() => setCount((count) => count + 1)}>
         count={count}
       </button>{" "}
-      fib({count})={result ?? "..."}
+      fib({count})={result?.count === count ? result.value : "..."}
     </>
   );
 }
+
 function App() {
   return (
     <>
