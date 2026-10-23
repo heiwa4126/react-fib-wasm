@@ -1,6 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { QueryClient, QueryClientProvider, useQuery } from "@tanstack/react-query";
 import "./App.css";
 import { fib as fibWasm } from "@heiwa4126/fib-wasm";
+
+const queryClient = new QueryClient();
 
 function FibButton({ n }: { n: number }) {
   const [count, setCount] = useState(n);
@@ -21,34 +24,27 @@ function FibButton({ n }: { n: number }) {
 }
 
 function FibButtonWasm({ n }: { n: number }) {
-  const [result, setResult] = useState<{ count: number; value: number } | null>(null);
   const [count, setCount] = useState(n);
-
-  useEffect(() => {
-    let ignore = false;
-
-    void fibWasm(count).then((value) => {
-      if (!ignore) setResult({ count, value });
-    });
-
-    return () => {
-      ignore = true;
-    };
-  }, [count]);
+  const { data, isPending, isError } = useQuery({
+    queryKey: ["fib-wasm", count],
+    queryFn: () => fibWasm(count),
+    staleTime: Infinity,
+    retry: false,
+  });
 
   return (
     <>
       <button type="button" className="counter" onClick={() => setCount((count) => count + 1)}>
         count={count}
       </button>{" "}
-      fib({count})={result?.count === count ? result.value : "..."}
+      fib({count})={isPending ? "..." : isError ? "計算エラー" : data}
     </>
   );
 }
 
 function App() {
   return (
-    <>
+    <QueryClientProvider client={queryClient}>
       <h1>react-fib-wasm</h1>
       <h2>JavaScript Fibonacci</h2>
       <div>
@@ -58,7 +54,7 @@ function App() {
       <div>
         <FibButtonWasm n={1} />
       </div>
-    </>
+    </QueryClientProvider>
   );
 }
 
